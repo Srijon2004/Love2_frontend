@@ -2204,50 +2204,31 @@ export default function Dashboard() {
         }
     }, [token, navigate]);
 
-    // const fetchProposals = async () => {
-    //     if (!token) return;
-    //     try {
-    //         // CORRECT: Use the secure endpoint that relies on the token
-    //         const res = await API.get('/user/my-proposals', {
-    //             headers: { Authorization: `Bearer ${token}` }
-    //         });
-    //         setProposals(res.data.girlfriends.reverse());
-    //         // CORRECT: Set the username from the API response
-    //         setUsername(res.data.username);
-    //         // CORRECT: Update localStorage to stay in sync
-    //         localStorage.setItem('username', res.data.username);
-    //     } catch (err) {
-    //         console.error("Failed to fetch proposals", err);
-    //         // Handle potential logout if token is invalid
-    //         if (err.response && (err.response.status === 401 || err.response.status === 403)) {
-    //             localStorage.clear();
-    //             navigate('/login');
-    //         }
-    //     }
-    // };
+    const fetchProposals = async () => {
+        if (!token) return;
+        try {
+            // CORRECT: Use the secure endpoint that relies on the token
+            const res = await API.get('/user/my-proposals', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setProposals(res.data.girlfriends.reverse());
+            // CORRECT: Set the username from the API response
+            setUsername(res.data.username);
+            // CORRECT: Update localStorage to stay in sync
+            localStorage.setItem('username', res.data.username);
+        } catch (err) {
+            console.error("Failed to fetch proposals", err);
+            // Handle potential logout if token is invalid
+            if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+                localStorage.clear();
+                navigate('/login');
+            }
+        }
+    };
 
 
-    const fetchProposals = async (setProposals, setUsername) => {
-  const navigate = useNavigate();
-  const token = localStorage.getItem("token");
-  if (!token) return;
+    
 
-  try {
-    const res = await API.get("/user/my-proposals", {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-
-    setProposals(res.data.girlfriends.reverse());
-    setUsername(res.data.username);
-    localStorage.setItem("username", res.data.username);
-  } catch (err) {
-    console.error("Failed to fetch proposals", err);
-    if (err.response && (err.response.status === 401 || err.response.status === 403)) {
-      localStorage.clear();
-      navigate("/login");
-    }
-  }
-};
 
 
 
