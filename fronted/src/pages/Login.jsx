@@ -714,6 +714,7 @@ export default function Login() {
     setLoading(true);
   try {
     const res = await API.post("/auth/login", { email, password });
+    console.log(res)
     const { token, username } = res.data;
     localStorage.setItem("token", token);
     localStorage.setItem("username", username);
