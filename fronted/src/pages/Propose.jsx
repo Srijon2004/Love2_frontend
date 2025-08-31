@@ -726,13 +726,19 @@ export default function Propose() {
           />
         )}
 
-        <div
+        {/* <div
           className="tenor-gif-embed rounded-lg w-full max-w-[220px] h-auto"
           data-postid="22885016"
           data-share-method="host"
           data-aspect-ratio="1.04918"
           data-width="100%"
-        >
+        > */}
+        <div 
+        class="tenor-gif-embed" 
+        data-postid="22885016" 
+        data-share-method="host" 
+        data-aspect-ratio="1.04918" 
+        data-width="100%">
           <a href="https://tenor.com/view/manja-gif-22885016">Manja Sticker</a> from{" "}
           <a href="https://tenor.com/search/manja-stickers">Manja Stickers</a>
         </div>
