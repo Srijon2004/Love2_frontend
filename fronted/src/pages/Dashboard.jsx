@@ -2283,7 +2283,7 @@ export default function Dashboard() {
                 <h2 className="text-3xl font-bold text-gray-800 mb-4">Your Proposals</h2>
                 <div className="space-y-4">
                     {proposals.length > 0 ? (
-                        proposals.map(p => <ProposalCard key={p._id} proposal={p} username={username} onDelete={handleDelete}/>)
+                        proposals.map(p => <ProposalCard key={p._id} proposal={p} username={p.username} onDelete={handleDelete}/>)
                     ) : (
                         <div className="text-center py-16 bg-white rounded-xl shadow-sm border border-gray-200/80">
                             <h3 className="text-2xl font-bold text-gray-700">No Proposals Yet!</h3>
