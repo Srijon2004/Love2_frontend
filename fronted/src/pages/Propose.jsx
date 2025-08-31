@@ -700,13 +700,27 @@ export default function Propose() {
       .finally(() => setLoading(false));
   }, [username, girlfriendId]);
 
+  // useEffect(() => {
+  //   const script = document.createElement("script");
+  //   script.src = "https://tenor.com/embed.js";
+  //   script.async = true;
+  //   document.body.appendChild(script);
+  //   return () => document.body.removeChild(script);
+  // }, []);
   useEffect(() => {
+  // Check if script is already added
+  if (!document.getElementById("tenor-script")) {
     const script = document.createElement("script");
+    script.id = "tenor-script";
     script.src = "https://tenor.com/embed.js";
     script.async = true;
     document.body.appendChild(script);
-    return () => document.body.removeChild(script);
-  }, []);
+  } else {
+    // If script is already loaded, manually initialize Tenor GIFs
+    if (window.Tenor) window.Tenor.refresh && window.Tenor.refresh();
+  }
+}, [girlfriend]);
+
 
   const girlName = girlfriend?.name || localStorage.getItem("girlName") || "My Love";
   const girlPhoto = girlfriend?.photo || localStorage.getItem("girlPhoto");
