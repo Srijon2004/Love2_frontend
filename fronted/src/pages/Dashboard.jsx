@@ -2128,7 +2128,8 @@ import toast from "react-hot-toast";
 // Card for a single proposal
 const ProposalCard = ({ proposal, username, onDelete }) => {
     const navigate = useNavigate();
-    const proposalLink = `${window.location.origin}/propose/${username}/${proposal._id}`;
+    // const proposalLink = `${window.location.origin}/propose/${username}/${proposal._id}`;
+    const proposalLink = `${window.location.origin}/propose/${proposal.author.username}/${proposal._id}`;
 
     const handleCopyLink = () => {
         navigator.clipboard.writeText(proposalLink);
