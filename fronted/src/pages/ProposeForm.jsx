@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../utils/api';
-
+import toast from "react-hot-toast";
 export default function ProposeForm() {
     const [form, setForm] = useState({ name: '', photo: '', details: '' });
     const [loading, setLoading] = useState(false);
@@ -29,7 +29,8 @@ export default function ProposeForm() {
             await API.post('/user/girlfriend', form, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            alert('Proposal created successfully!');
+            // alert('Proposal created successfully!');
+            toast.success("Proposal created successfully!")
             navigate('/dashboard'); // Go back to the dashboard to see the new entry
         } catch (err) {
             setMsg(err.response?.data?.message || '❌ Error creating proposal');

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import API from '../utils/api';
-import {toast} from "react-hot-toast";
+import toast from "react-hot-toast";
 
 export default function EditProposal() {
     const { girlfriendId } = useParams(); // Get the ID from the URL
@@ -56,7 +56,8 @@ export default function EditProposal() {
             await API.put(`/user/girlfriend/${girlfriendId}`, form, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            alert('Proposal updated successfully!');
+            // alert('Proposal updated successfully!');
+            toast.success("Proposal updated successfully!")
             navigate('/dashboard'); // Go back to the dashboard
         } catch (err) {
             setMsg(err.response?.data?.message || '❌ Error updating proposal');
