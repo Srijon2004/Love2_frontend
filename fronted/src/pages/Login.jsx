@@ -692,21 +692,43 @@ export default function Login() {
   const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
 
-  const submit = async (e) => {
+  // const submit = async (e) => {
+  //   e.preventDefault();
+  //   setErr("");
+  //   setLoading(true);
+  //   try {
+  //     const res = await API.post("/auth/login", form);
+  //     localStorage.setItem("token", res.data.token);
+  //     localStorage.setItem("username", res.data.username);
+  //     navigate("/dashboard");
+  //   } catch (error) {
+  //     setErr(error.response?.data?.message || "Login failed. Try again!");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const submit = async (email, password) => {
     e.preventDefault();
     setErr("");
     setLoading(true);
-    try {
-      const res = await API.post("/auth/login", form);
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("username", res.data.username);
-      navigate("/dashboard");
-    } catch (error) {
-      setErr(error.response?.data?.message || "Login failed. Try again!");
-    } finally {
+  try {
+    const res = await API.post("/auth/login", { email, password });
+    const { token, username } = res.data;
+    localStorage.setItem("token", token);
+    localStorage.setItem("username", username);
+    navigate("/dashboard");
+  } catch (err) {
+    console.error(err);
+    // setErr(error.response?.data?.message || "Login failed. Try again!");
+    throw err;
+  }
+   finally {
       setLoading(false);
     }
-  };
+};
+
+
 
   const handleGoogleSignIn = async () => {
     try {
