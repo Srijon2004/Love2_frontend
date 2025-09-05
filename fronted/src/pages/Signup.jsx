@@ -895,7 +895,7 @@ export default function Signup() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      const res = await API.post("/v1/auth/google", {
+      const res = await API.post("/auth/google", {
         email: user.email,
         name: user.displayName,
         photo: user.photoURL,
