@@ -707,19 +707,18 @@ export default function Propose() {
   //   document.body.appendChild(script);
   //   return () => document.body.removeChild(script);
   // }, []);
+ 
+
   useEffect(() => {
-  // Check if script is already added
-  if (!document.getElementById("tenor-script")) {
-    const script = document.createElement("script");
-    script.id = "tenor-script";
-    script.src = "https://tenor.com/embed.js";
-    script.async = true;
-    document.body.appendChild(script);
-  } else {
-    // If script is already loaded, manually initialize Tenor GIFs
-    if (window.Tenor) window.Tenor.refresh && window.Tenor.refresh();
-  }
-}, [girlfriend]);
+  const script = document.createElement("script");
+  script.src = "https://tenor.com/embed.js";
+  script.async = true;
+  document.body.appendChild(script);
+  return () => {
+    // Clean up the script when the component is unmounted
+    document.body.removeChild(script);
+  };
+}, []);
 
 
   const girlName = girlfriend?.name || localStorage.getItem("girlName") || "My Love";
