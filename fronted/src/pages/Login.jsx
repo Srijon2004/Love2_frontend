@@ -873,6 +873,7 @@ export default function Login() {
   };
 
   const handleGoogleSignIn = async () => {
+    setLoading(true)
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
@@ -892,6 +893,9 @@ export default function Login() {
     } catch (err) {
       console.error(err);
       toast.error("Google Sign-In failed!");
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -960,6 +964,7 @@ export default function Login() {
         <button
           type="button"
           onClick={handleGoogleSignIn}
+          
           className="w-full py-3 border flex justify-center items-center gap-2 rounded-lg hover:bg-gray-100 transition"
         >
           <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
