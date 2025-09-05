@@ -1,51 +1,7 @@
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import API from '../utils/api';
-// import toast from "react-hot-toast";
-// export default function ProposeForm() {
-//     const [form, setForm] = useState({ name: '', photo: '', details: '' });
-//     const [loading, setLoading] = useState(false);
-//     const [msg, setMsg] = useState('');
-//     const navigate = useNavigate();
-//     const token = localStorage.getItem('token');
-
-//     const handleFileChange = (e) => {
-//         const file = e.target.files[0];
-//         if (!file) return;
-//         const reader = new FileReader();
-//         reader.onload = () => setForm(f => ({ ...f, photo: reader.result }));
-//         reader.readAsDataURL(file);
-//     };
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         if (!token) {
-//             navigate('/login');
-//             return;
-//         }
-//         setLoading(true);
-//         setMsg('');
-//         try {
-//             await API.post('/user/girlfriend', form, {
-//                 headers: { Authorization: `Bearer ${token}` }
-//             });
-//             // alert('Proposal created successfully!');
-//             toast.success("Proposal created successfully!")
-//             navigate('/dashboard'); // Go back to the dashboard to see the new entry
-//         } catch (err) {
-//             setMsg(err.response?.data?.message || '❌ Error creating proposal');
-//         } finally {
-//             setLoading(false);
-//         }
-//     };
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../utils/api";
 import toast from "react-hot-toast";
-import { storage } from "../firebase"; // Import storage
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Import storage functions
-
 export default function ProposeForm() {
   const [form, setForm] = useState({ name: "", photo: "", details: "" });
   const [loading, setLoading] = useState(false);
@@ -53,27 +9,12 @@ export default function ProposeForm() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
-  const handleFileChange = async (e) => {
+  const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
-    setLoading(true);
-    toast.loading("Uploading image...");
-
-    try {
-      const storageRef = ref(storage, `proposals/${Date.now()}_${file.name}`);
-      await uploadBytes(storageRef, file);
-      const downloadURL = await getDownloadURL(storageRef);
-      setForm((f) => ({ ...f, photo: downloadURL }));
-      toast.dismiss();
-      toast.success("Image uploaded!");
-    } catch (error) {
-      console.error("Error uploading image: ", error);
-      toast.dismiss();
-      toast.error("Image upload failed.");
-    } finally {
-      setLoading(false);
-    }
+    const reader = new FileReader();
+    reader.onload = () => setForm((f) => ({ ...f, photo: reader.result }));
+    reader.readAsDataURL(file);
   };
 
   const handleSubmit = async (e) => {
@@ -88,8 +29,9 @@ export default function ProposeForm() {
       await API.post("/user/girlfriend", form, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      // alert('Proposal created successfully!');
       toast.success("Proposal created successfully!");
-      navigate("/dashboard");
+      navigate("/dashboard"); // Go back to the dashboard to see the new entry
     } catch (err) {
       setMsg(err.response?.data?.message || "❌ Error creating proposal");
     } finally {
