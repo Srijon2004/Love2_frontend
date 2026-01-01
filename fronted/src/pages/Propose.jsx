@@ -817,6 +817,9 @@ export default function Propose() {
         setErr("");
         localStorage.setItem("girlName", res.data.girlfriend.name);
         localStorage.setItem("girlPhoto", res.data.girlfriend.photo || "");
+
+        localStorage.setItem("bf_username", username);
+        localStorage.setItem("gf_id", girlfriendId);
       })
       .catch((e) => {
         console.error(e);

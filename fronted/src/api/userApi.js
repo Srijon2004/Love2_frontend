@@ -73,3 +73,27 @@ export const saveGirlfriend = async (girlfriendData) => {
     throw err.response?.data || err.message;
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// src/api/userApi.js
+export const sendGirlfriendResponse = async (username, girlfriendId, message) => {
+  try {
+    const res = await axios.post(`/api/user/respond/${username}/${girlfriendId}`, { message });
+    return res.data;
+  } catch (err) {
+    throw err.response?.data || err.message;
+  }
+};
