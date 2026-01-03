@@ -73,34 +73,63 @@
 //     throw err.response?.data || err.message;
 //   }
 // };
-import API from "../utils/api"; // Import your configured instance
+// import API from "../utils/api"; // Import your configured instance
 
+// export const saveGirlfriend = async (girlfriendData) => {
+//   try {
+//     const res = await API.post("/user/girlfriend", girlfriendData); // Use API instance
+//     return res.data;
+//   } catch (err) {
+//     throw err.response?.data || err.message;
+//   }
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // src/api/userApi.js
+// export const sendGirlfriendResponse = async (username, girlfriendId, message) => {
+//   try {
+//     const res = await axios.post(`/api/user/respond/${username}/${girlfriendId}`, { message });
+//     return res.data;
+//   } catch (err) {
+//     throw err.response?.data || err.message;
+//   }
+// };
+
+
+
+
+
+
+import API from "../utils/api"; // Import your configured API instance
+
+// Function to save new proposal details
 export const saveGirlfriend = async (girlfriendData) => {
   try {
-    const res = await API.post("/user/girlfriend", girlfriendData); // Use API instance
+    const res = await API.post("/user/girlfriend", girlfriendData); 
     return res.data;
   } catch (err) {
     throw err.response?.data || err.message;
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// src/api/userApi.js
+// Function to send the "Yes/No" response and message
 export const sendGirlfriendResponse = async (username, girlfriendId, message) => {
   try {
-    const res = await axios.post(`/api/user/respond/${username}/${girlfriendId}`, { message });
+    // We use 'API' instead of 'axios' to use the production URL
+    // We remove the '/api' prefix because the API instance already has it
+    const res = await API.post(`/user/respond/${username}/${girlfriendId}`, { message });
     return res.data;
   } catch (err) {
     throw err.response?.data || err.message;
