@@ -59,21 +59,30 @@
 // };
 
 
-import axios from "axios";
+// import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:5000";
-axios.defaults.withCredentials = true;
+// axios.defaults.baseURL = "http://localhost:5000";
+// axios.defaults.withCredentials = true;
+
+// export const saveGirlfriend = async (girlfriendData) => {
+//   try {
+//     const res = await axios.post("/api/user/girlfriend", girlfriendData);
+//     // Return the response exactly as backend sends
+//     return res.data; // <- important!
+//   } catch (err) {
+//     throw err.response?.data || err.message;
+//   }
+// };
+import API from "../utils/api"; // Import your configured instance
 
 export const saveGirlfriend = async (girlfriendData) => {
   try {
-    const res = await axios.post("/api/user/girlfriend", girlfriendData);
-    // Return the response exactly as backend sends
-    return res.data; // <- important!
+    const res = await API.post("/user/girlfriend", girlfriendData); // Use API instance
+    return res.data;
   } catch (err) {
     throw err.response?.data || err.message;
   }
 };
-
 
 
 
