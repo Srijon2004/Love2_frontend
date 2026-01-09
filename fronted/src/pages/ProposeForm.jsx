@@ -97,14 +97,6 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
 // ===============
 
 // import React, { useState } from "react";
@@ -147,7 +139,7 @@
 //       }
 
 //       await API.post("/user/girlfriend", formData, {
-//         headers: { 
+//         headers: {
 //           Authorization: `Bearer ${token}`,
 //           "Content-Type": "multipart/form-data" // Required for file uploads
 //         },
@@ -161,7 +153,6 @@
 //       setLoading(false);
 //     }
 //   };
-
 
 //   return (
 //     <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-20 px-4">
@@ -221,22 +212,6 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../utils/api";
@@ -245,7 +220,7 @@ import toast from "react-hot-toast";
 export default function ProposeForm() {
   const [form, setForm] = useState({ name: "", details: "" });
   const [photoFile, setPhotoFile] = useState(null); // Store the actual file
-  const [preview, setPreview] = useState("");      // Local preview URL
+  const [preview, setPreview] = useState(""); // Local preview URL
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
@@ -276,9 +251,9 @@ export default function ProposeForm() {
       }
 
       await API.post("/user/girlfriend", formData, {
-        headers: { 
+        headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data" // Tell server to expect a file
+          "Content-Type": "multipart/form-data", // Tell server to expect a file
         },
       });
 
@@ -294,7 +269,9 @@ export default function ProposeForm() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-20 px-4">
       <div className="w-full max-w-lg bg-white p-8 rounded-2xl shadow-lg border">
-        <h2 className="text-3xl font-extrabold text-center text-pink-600 mb-6">Create a New Proposal</h2>
+        <h2 className="text-3xl font-extrabold text-center text-pink-600 mb-6">
+          Create a New Proposal
+        </h2>
         {msg && <p className="text-center text-sm text-red-600 mb-4">{msg}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -305,8 +282,19 @@ export default function ProposeForm() {
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-pink-400 focus:outline-none"
           />
           <div>
-            <input type="file" accept="image/*" onChange={handleFileChange} className="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-50 file:text-pink-700 hover:file:bg-pink-100" />
-            {preview && <img src={preview} alt="Preview" className="mt-3 w-24 h-24 object-cover rounded-full mx-auto shadow-md" />}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-50 file:text-pink-700 hover:file:bg-pink-100"
+            />
+            {preview && (
+              <img
+                src={preview}
+                alt="Preview"
+                className="mt-3 w-24 h-24 object-cover rounded-full mx-auto shadow-md"
+              />
+            )}
           </div>
           <textarea
             placeholder="Write a sweet message ❤️"
@@ -315,7 +303,11 @@ export default function ProposeForm() {
             rows="4"
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-pink-400 focus:outline-none"
           />
-          <button type="submit" disabled={loading} className="w-full py-3 bg-pink-500 text-white text-lg font-semibold rounded-lg hover:bg-pink-600 transition disabled:bg-pink-300">
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 bg-pink-500 text-white text-lg font-semibold rounded-lg hover:bg-pink-600 transition disabled:bg-pink-300"
+          >
             {loading ? "Saving..." : "✨ Create Proposal"}
           </button>
         </form>
